@@ -124,17 +124,26 @@ except arcpy.ExecuteError as e:
     print(f"Erro ao exportar feições selecionadas: {e}")
 
 # Mesclar feições da camada 'Lotes_Testadas' com a mesma informação no campo 'tx_faststr'
-    try:
+try:
+    dissolve_field = "tx_faststr"  # Campo para dissolver
+    # Especificar os campos e as funções de agregação
+    fields_to_aggregate = [
+        ["tx_insct", "FIRST"],  # Mantém o primeiro valor do campo 'x_insct'
+        ["OBJECTID", "FIRST"],  # Mantém o primeiro valor do campo 'OBJECTID'
+        ["int_testada", "FIRST"]  # Soma os valores do campo 'int_testada'
+    ]
+
+    # Executar o dissolve com base no campo 'tx_faststr'
     arcpy.management.Dissolve(
         in_features=lotes_testadas,
         out_feature_class=lotes_testadas_m,
-        dissolve_field="tx_faststr",  # Dissolve baseado no campo 'tx_faststr'
-        multi_part="SINGLE_PART"  # Opção para manter feições multiparticionadas separadas
+        dissolve_field=dissolve_field,  # Dissolve baseado no campo 'tx_faststr'
+        statistics_fields=fields_to_aggregate,  # Especifica como os campos serão agregados
+        multi_part="SINGLE_PART"  # Mantém as feições multiparticionadas separadas
     )
     print("Feições dissolvidas com sucesso com base no campo 'tx_faststr'.")
 except arcpy.ExecuteError as e:
     print(f"Erro ao dissolver as feições: {e}")
-# a camada de output não possui os campos da camada original
 
 #Realizar verificação manual após a operação, pois, dependendo da configuração do desenho a quadra, algumas testadas podem não ser selecionadas.
 #Ajustes os parâmetros conforme suas necessidades. :)
