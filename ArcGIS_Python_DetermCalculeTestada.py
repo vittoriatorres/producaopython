@@ -125,12 +125,16 @@ except arcpy.ExecuteError as e:
 
 # Mesclar feições da camada 'Lotes_Testadas' com a mesma informação no campo 'tx_faststr'
     try:
-        arcpy.management.Dissolve(
-            in_features="Lotes_Testadas",
-            out_feature_class="Lotes_Testadas_M",
-            dissolve_field=""
-            multi_part=""
-        )
+    arcpy.management.Dissolve(
+        in_features=lotes_testadas,
+        out_feature_class=lotes_testadas_m,
+        dissolve_field="tx_faststr",  # Dissolve baseado no campo 'tx_faststr'
+        multi_part="SINGLE_PART"  # Opção para manter feições multiparticionadas separadas
+    )
+    print("Feições dissolvidas com sucesso com base no campo 'tx_faststr'.")
+except arcpy.ExecuteError as e:
+    print(f"Erro ao dissolver as feições: {e}")
+# a camada de output não possui os campos da camada original
 
 #Realizar verificação manual após a operação, pois, dependendo da configuração do desenho a quadra, algumas testadas podem não ser selecionadas.
 #Ajustes os parâmetros conforme suas necessidades. :)
