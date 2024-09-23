@@ -122,5 +122,8 @@ try:
 except arcpy.ExecuteError as e:
     print(f"Erro ao exportar feições selecionadas: {e}")
 
+# Mesclar feições da camada 'Lotes_Testadas' com a mesma informação no campo 'tx_faststr'
+
 # Realizar verificação manual após a operação, pois, dependendo da configuração do desenho a quadra, algumas testadas podem não ser selecionadas.
 # Ajustes os parâmetros conforme suas necessidades. :)
+
