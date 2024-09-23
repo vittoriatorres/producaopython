@@ -18,6 +18,7 @@ arcpy.env.workspace = diretorio
 lotes_arestas = f"{diretorio}\\Lotes_Arestas"
 buffer_15m = f"{diretorio}\\Logra_Buffer_15m"
 lotes_testadas = f"{diretorio}\\Lotes_Testadas"
+lotes_testadas_m =f"{diretorio}\\Lotes_Testadas_M"
 
 try:
     # 1. Extrair as arestas dos polígonos da camada 'lotes' e conservar apenas os campos OBJECTID, tx_insct e tx_faststr
@@ -123,7 +124,13 @@ except arcpy.ExecuteError as e:
     print(f"Erro ao exportar feições selecionadas: {e}")
 
 # Mesclar feições da camada 'Lotes_Testadas' com a mesma informação no campo 'tx_faststr'
+    try:
+        arcpy.management.Dissolve(
+            in_features="Lotes_Testadas",
+            out_feature_class="Lotes_Testadas_M",
+            dissolve_field=""
+            multi_part=""
+        )
 
-# Realizar verificação manual após a operação, pois, dependendo da configuração do desenho a quadra, algumas testadas podem não ser selecionadas.
-# Ajustes os parâmetros conforme suas necessidades. :)
-
+#Realizar verificação manual após a operação, pois, dependendo da configuração do desenho a quadra, algumas testadas podem não ser selecionadas.
+#Ajustes os parâmetros conforme suas necessidades. :)
