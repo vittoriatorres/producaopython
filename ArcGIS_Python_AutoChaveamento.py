@@ -175,7 +175,7 @@ try:
             # Escolher novo ponto inicial (ex.: índice 57)
             # Observação: Antes deve obter o índice do vértice desejado manualmente
             # Ribbon> Edit> Edit Vertices> Select Feature> Select Vertice>
-        # Right Click on the selected vertice > Search for the number of the desired index (it will be selected)
+            # Right Click on the selected vertice > Search for the number of the desired index (it will be selected)
             new_start_index = 57  # Substitua pelo índice que você determinou
             
             # Reordenar os pontos começando do novo ponto inicial
